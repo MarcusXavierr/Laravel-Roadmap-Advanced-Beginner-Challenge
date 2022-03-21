@@ -1,8 +1,10 @@
 <?php
 
+use App\Enums\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 return new class extends Migration
 {
@@ -17,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->integer('status');
+            $table->integer('status')->default(Status::Open);
             $table->timestamp('deadline', 0);
             $table->timestamps();
 
