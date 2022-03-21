@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ClientController as AdminClientController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\Admin\TaskController as AdminTaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +24,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::group([
+        'prefix' => 'admin',
+        'middleware' => 'auth',
+        'as' => 'admin.'
+    ], function () {
+        Route::resource('clients', AdminClientController::class);
+        Route::resource('tasks', AdminTaskController::class);
+        Route::resource('projects', AdminProjectController::class);
+    });
+});
+
+require __DIR__ . '/auth.php';
