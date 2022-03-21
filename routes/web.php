@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::group([
         'prefix' => 'admin',
-        'middleware' => 'auth',
+        'middleware' => 'is_admin',
         'as' => 'admin.'
     ], function () {
         Route::resource('clients', AdminClientController::class);
