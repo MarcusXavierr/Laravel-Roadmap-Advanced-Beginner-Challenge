@@ -17,6 +17,9 @@ class Project extends Model
         'status'
     ];
 
+    protected $casts = [
+        'deadline' => 'datetime'
+    ];
     public function client()
     {
         return $this->belongsTo(Client::class);
