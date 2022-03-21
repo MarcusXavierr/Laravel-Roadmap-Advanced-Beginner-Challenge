@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->unsignedBigInteger('user_id'); //the user that has made tha last action
-            $table->integer('status')->default(Status::Open);
+            $table->string('status')->default(Status::Open);
+            $table->unsignedBigInteger('project_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 

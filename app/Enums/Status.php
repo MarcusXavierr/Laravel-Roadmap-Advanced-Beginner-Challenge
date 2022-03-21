@@ -11,7 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class Status extends Enum
 {
-    const Open     = 1;
-    const Archived = 2;
-    const Finished = 3;
+    const Open     = "OPEN";
+    const Archived = "ARCHIVED";
+    const Finished = "FINISHED";
 }

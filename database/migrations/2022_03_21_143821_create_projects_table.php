@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->integer('status')->default(Status::Open);
+            $table->string('status')->default(Status::Open);
             $table->timestamp('deadline', 0);
             $table->timestamps();
 
