@@ -86,6 +86,17 @@ class ClientControllerTest extends ApiFeatureTestCase
     }
 
     /** @test */
+    public function admin_gets_error_when_try_to_update_nonexistent_client()
+    {
+        $this->loginAsAdmin();
+        $this->putJson(
+            route('api.clients.update', ['client' => 0]),
+            $this->payload
+        )
+            ->assertStatus(404)
+            ->assertSee('No query results for model');
+    }
+    /** @test */
     public function admin_cannot_update_to_a_existing_name()
     {
         $client = Client::factory()->create();
@@ -97,5 +108,29 @@ class ClientControllerTest extends ApiFeatureTestCase
             ['name' => 'myname']
         )
             ->assertJsonValidationErrors(['name']);
+    }
+
+    /** @test */
+    public function admin_deletes_product_sucessfully()
+    {
+        $this->loginAsAdmin();
+        $client = Client::factory()->create();
+
+        $this->assertDatabaseHas('clients', ['name' => $client->name]);
+
+        $this->deleteJson(route('api.clients.destroy', ['client' => $client->id]))
+            ->assertStatus(204);
+
+        $this->assertDatabaseMissing('clients', ['name' => $client->name]);
+        $this->assertDatabaseCount('clients', 0);
+    }
+
+    /** @test */
+    public function admin_gets_error_when_try_to_delete_nonexistent_client()
+    {
+        $this->loginAsAdmin();
+        $this->putJson(route('api.clients.destroy', ['client' => 0]))
+            ->assertStatus(404)
+            ->assertSee('No query results for model');
     }
 }
