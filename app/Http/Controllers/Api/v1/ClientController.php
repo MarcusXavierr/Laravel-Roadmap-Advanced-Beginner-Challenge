@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreClientResource;
+use App\Http\Requests\Api\StoreClientRequest;
 use App\Http\Resources\ClientsResource;
 use App\Models\Client;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClientResource $request)
+    public function store(StoreClientRequest $request)
     {
         $data = $request->validated();
         $client = Client::create($data);
