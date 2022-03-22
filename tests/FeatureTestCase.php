@@ -21,4 +21,11 @@ class FeatureTestCase extends TestCase
         $this->actingAs($user);
         return $user;
     }
+
+    public function loginAsAdmin(User $user = null): User
+    {
+        $user ??= User::factory()->create(['is_admin' => true]);
+        $this->actingAs($user);
+        return $user;
+    }
 }
